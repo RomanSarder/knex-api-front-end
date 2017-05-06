@@ -1,15 +1,11 @@
 import React, {Component} from 'react';
 
 class Home extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
     }
     render() {
-        return (
-            <div>
-                <h2>Home</h2>
-            </div>
-        );
+        return <h2>Here will be login/register form.</h2>
     }
 }
 

@@ -3,7 +3,6 @@ var webpack = require('webpack');
 module.exports = {
     entry: [
         'script-loader!jquery/dist/jquery.min.js',
-        'script-loader!foundation-sites/dist/js/foundation.min.js',
         './app/app.jsx'
     ],
     externals: {
@@ -48,5 +47,5 @@ module.exports = {
             }
         ]
     },
-    devtool: 'cheap-module-eval-source-map'
+    devtool: 'cheap-module-source-map'
 };
