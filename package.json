@@ -1,5 +1,5 @@
 {
-  "name": "hello-react",
+  "name": "react-redux-for-knex-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,7 +14,11 @@
     "express": "^4.14.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "react-router": "^3.0.2"
+    "react-redux": "^5.0.4",
+    "react-router": "^3.0.2",
+    "react-router-dom": "^4.1.1",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",
@@ -37,6 +41,7 @@
     "mocha": "^3.2.0",
     "node-sass": "^4.5.0",
     "react-addons-test-utils": "^15.4.2",
+    "redux-mock-store": "^1.2.3",
     "sass-loader": "^6.0.0",
     "script-loader": "^0.7.0",
     "style-loader": "^0.13.1",

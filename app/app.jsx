@@ -1,14 +1,18 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var {Route, Router, IndexRoute, hashHistory} = require('react-router');
-var Main = require('Main');
+import React from 'react';
+import {render} from 'react-dom';
+import Main from 'Main';
+import {BrowserRouter, Match, Link} from 'react-router-dom';
 
 
 //Load Foundation
 require('foundation-sites/dist/css/foundation.min.css');
 require('applicationStyles');
 
-ReactDOM.render(
-	<p>Boilerplate 3 project</p>,
+render(
+	<BrowserRouter>
+		<div>
+			<Main />
+		</div>
+	</BrowserRouter>,
 	document.getElementById('app')
 );
