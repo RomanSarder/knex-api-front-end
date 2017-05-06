@@ -9,7 +9,14 @@ describe('ACTIONS', () => {
         let action = {
             type: 'START_FETCH'
         };
-        let res = actions.startFetch(action);
+        let res = actions.startFetch();
+        expect(res).toEqual(action);
+    });
+    it('should generate FINISH_FETCH action', () => {
+        let action = {
+            type: 'FINISH_FETCH'
+        };
+        let res = actions.finishFetch();
         expect(res).toEqual(action);
     });
     it('should generate SUCCESS_LOGIN action', () => {
@@ -36,8 +43,10 @@ describe('ASYNC ACTIONS', () => {
         const store = createMockStore({});
         store.dispatch(actions.login(email, password)).then(() => {
             const actions = store.getActions();
-            expect(actions[0]).toInclude({type: 'SUCCESS_LOGIN'});
-            expect(actions[0].token).toBeA('string');
+            expect(actions[0]).toInclude({type: 'START_FETCH'});
+            expect(actions[1]).toInclude({type: 'SUCCESS_LOGIN'});
+            expect(actions[1].token).toBeA('string');
+            expect(actions[2]).toInclude({type: 'FINISH_FETCH'});
             done()
         }).catch(done);
     });
@@ -45,8 +54,10 @@ describe('ASYNC ACTIONS', () => {
         const store = createMockStore();
         store.dispatch(actions.login('1234', 'adsad')).then(() => {
             const actions = store.getActions();
-            expect(actions[0]).toInclude({type: 'FAIL_LOGIN'});
-            expect(actions[0].message).toBeA('string');
+            expect(actions[0]).toInclude({type: 'START_FETCH'});
+            expect(actions[1]).toInclude({type: 'FAIL_LOGIN'});
+            expect(actions[1].message).toBeA('string');
+            expect(actions[2]).toInclude({type: 'FINISH_FETCH'});
             done()
         }).catch(done);
     });
