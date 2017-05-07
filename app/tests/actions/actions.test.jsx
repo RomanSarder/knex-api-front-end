@@ -35,6 +35,22 @@ describe('ACTIONS', () => {
         let res = actions.failLogin(action.message);
         expect(res).toEqual(action);
     });
+    it('should generate ADD_ITEMS action with array', () => {
+        let action = {
+            type: 'ADD_ITEMS',
+            items: [1,2,3]
+        };
+        let res = actions.addItems(action.items);
+        expect(res).toEqual(action);
+    });
+    it('should generate ERROR action with message', () => {
+        let action = {
+            type: 'ERROR',
+            message: 'YAY'
+        };
+        let res = actions.errorMessage(action.message);
+        expect(res).toEqual(action);
+    });
 });
 describe('ASYNC ACTIONS', () => {
     const email = 'roman@ya.ru';
@@ -61,5 +77,17 @@ describe('ASYNC ACTIONS', () => {
             expect(actions[2]).toInclude({type: 'FINISH_FETCH'});
             done()
         }).catch(done);
+    });
+    it('should fetch items and generate finishFetch', (done) => {
+        const store = createMockStore();
+        store.dispatch(actions.fetchItems()).then(() => {
+            const actions = store.getActions();
+            expect(actions[0]).toInclude({type: 'START_FETCH'});
+            expect(actions[2]).toInclude({type: 'FINISH_FETCH'});
+            expect(actions[1]).toInclude({type: 'ADD_ITEMS'});
+            expect(actions[1].items).toBeA('array');
+            done()
+        })
+        .catch(done);
     });
 });

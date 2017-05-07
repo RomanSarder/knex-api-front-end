@@ -43,3 +43,29 @@ export let login = (email, password) => {
             })
     }
 }
+export let addItems = (items) => {
+    return {
+        type: 'ADD_ITEMS',
+        items,
+    }
+}
+export let errorMessage = (message) => {
+    return {
+        type: 'ERROR',
+        message
+    }
+}
+export let fetchItems = () => {
+    return (dispatch, getState) => {
+        dispatch(startFetch());
+            return axios.get(`${URL}/api/items`)
+            .then((res) => {
+                dispatch(addItems(res.data));
+                dispatch(finishFetch());
+            })
+            .catch((err) => {
+                dispatch(errorMessage(err.response.data.message));
+                dispatch(finishFetch());
+            })
+    } 
+}

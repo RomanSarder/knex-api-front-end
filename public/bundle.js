@@ -8159,7 +8159,7 @@ module.exports = function bind(fn, thisArg) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.login = exports.failLogin = exports.successLogin = exports.finishFetch = exports.startFetch = undefined;
+exports.fetchItems = exports.errorMessage = exports.addItems = exports.login = exports.failLogin = exports.successLogin = exports.finishFetch = exports.startFetch = undefined;
 
 var _axios = __webpack_require__(119);
 
@@ -8207,6 +8207,30 @@ var login = exports.login = function login(email, password) {
                 dispatch(failLogin('Oops. Something went wrong! Try again.'));
                 dispatch(finishFetch());
             }
+        });
+    };
+};
+var addItems = exports.addItems = function addItems(items) {
+    return {
+        type: 'ADD_ITEMS',
+        items: items
+    };
+};
+var errorMessage = exports.errorMessage = function errorMessage(message) {
+    return {
+        type: 'ERROR',
+        message: message
+    };
+};
+var fetchItems = exports.fetchItems = function fetchItems() {
+    return function (dispatch, getState) {
+        dispatch(startFetch());
+        return _axios2.default.get(URL + '/api/items').then(function (res) {
+            dispatch(addItems(res.data));
+            dispatch(finishFetch());
+        }).catch(function (err) {
+            dispatch(errorMessage(err.response.data.message));
+            dispatch(finishFetch());
         });
     };
 };
@@ -13960,6 +13984,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 var authReducer = exports.authReducer = function authReducer() {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var action = arguments[1];
@@ -13986,6 +14012,28 @@ var isLoadingReducer = exports.isLoadingReducer = function isLoadingReducer() {
             return true;
         case 'FINISH_FETCH':
             return false;
+        default:
+            return state;
+    }
+};
+var itemsReducer = exports.itemsReducer = function itemsReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+    var action = arguments[1];
+
+    switch (action.type) {
+        case 'ADD_ITEMS':
+            return [].concat(_toConsumableArray(state), _toConsumableArray(action.items));
+        default:
+            return state;
+    }
+};
+var errorReducer = exports.errorReducer = function errorReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+    var action = arguments[1];
+
+    switch (action.type) {
+        case 'ERROR':
+            return action.message;
         default:
             return state;
     }
@@ -14022,7 +14070,9 @@ var configure = exports.configure = function configure() {
 
     var reducer = redux.combineReducers({
         isLoading: _reducers.isLoadingReducer,
-        auth: _reducers.authReducer
+        auth: _reducers.authReducer,
+        items: _reducers.itemsReducer,
+        error: _reducers.errorReducer
     });
     var createStoreWithMiddleware = redux.applyMiddleware(_reduxThunk2.default)(redux.createStore);
     var store = createStoreWithMiddleware(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());

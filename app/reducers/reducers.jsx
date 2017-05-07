@@ -24,3 +24,22 @@ export let isLoadingReducer = (state = false, action) => {
             return state;
     }      
 }
+export let itemsReducer = (state = [], action) => {
+    switch (action.type) {
+        case 'ADD_ITEMS':
+            return [
+                ...state,
+                ...action.items
+            ]
+        default:
+            return state;
+    }
+}
+export let errorReducer = (state = '', action) => {
+    switch (action.type) {
+        case 'ERROR':
+            return action.message;
+        default:
+            return state;
+    }
+}
