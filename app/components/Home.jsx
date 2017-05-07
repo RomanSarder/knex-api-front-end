@@ -8,18 +8,6 @@ class Home extends Component {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    componentWillReceiveProps(nextProps) {
-        console.log('nextProps');
-        if (!nextProps.isLoading) {
-            if (nextProps.auth.error) {
-                console.log('error');
-            } else if (nextProps.auth.token) {
-                console.log('success');
-            } else {
-                console.log('something else');
-            }
-        }
-    }
     
     handleSubmit(e) {
         let {isLoading, auth, dispatch} = this.props

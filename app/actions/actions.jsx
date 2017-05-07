@@ -64,8 +64,13 @@ export let fetchItems = () => {
                 dispatch(finishFetch());
             })
             .catch((err) => {
-                dispatch(errorMessage(err.response.data.message));
-                dispatch(finishFetch());
+                if (err.response) {
+                    dispatch(errorMessage(err.response.data.message));
+                    dispatch(finishFetch());
+                } else {
+                    dispatch(errorMessage('Oops. Something went wrong! Try again.'));
+                    dispatch(finishFetch());
+                }
             })
     } 
 }

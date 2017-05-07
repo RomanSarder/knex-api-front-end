@@ -86,6 +86,7 @@ describe('ASYNC ACTIONS', () => {
             expect(actions[2]).toInclude({type: 'FINISH_FETCH'});
             expect(actions[1]).toInclude({type: 'ADD_ITEMS'});
             expect(actions[1].items).toBeA('array');
+            expect(actions[1].items.length).toBeMoreThan(0);
             done()
         })
         .catch(done);
