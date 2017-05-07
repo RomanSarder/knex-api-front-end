@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Redirect} from 'react-router-dom'
+import {Redirect, withRouter} from 'react-router-dom'
 
 class DashBoard extends Component {
     constructor(props) {
@@ -12,13 +12,13 @@ class DashBoard extends Component {
                 <h2>Here will be dashboard with items.</h2>
             );
         } else {
-            return <Redirect to={{pathname: '/'}} push/>
+            return <Redirect to='/items/2'/>
         }
     }
 }
 
-export default connect(
+export default withRouter(connect(
     (state) => {
         return state;
     }
-)(DashBoard);
+)(DashBoard));

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import * as actions from 'actions';
+import {Redirect} from 'react-router-dom';
 
 class Home extends Component {
     constructor(props) {
@@ -45,6 +46,9 @@ class Home extends Component {
                 return <p></p>
             }
         }
+        if (auth.token) {
+            return (<Redirect to='/dashboard'/>)
+        }
         return (
             <div className="form-container">
                 {renderMessage()}
@@ -54,7 +58,7 @@ class Home extends Component {
                         <input type="text" name="email" placeholder="First Name" ref="email" />
                     </div>
                     <div className="field">
-                        <label>Last Name</label>
+                        <label>Password</label>
                         <input type="text" name="password" placeholder="Last Name" ref="password"/>
                     </div>
                     <button className="form-button" type="submit">{renderLoading()}</button>
