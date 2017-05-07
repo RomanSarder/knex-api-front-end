@@ -56,6 +56,7 @@ describe('ASYNC ACTIONS', () => {
             const actions = store.getActions();
             expect(actions[0]).toInclude({type: 'START_FETCH'});
             expect(actions[1]).toInclude({type: 'FAIL_LOGIN'});
+            expect(actions[1].message).toNotEqual('Something went wrong. Try again!')
             expect(actions[1].message).toBeA('string');
             expect(actions[2]).toInclude({type: 'FINISH_FETCH'});
             done()

@@ -1,5 +1,5 @@
 import axios from 'axios';
-const URL = process.env.URL || 'http://localhost:3000'
+const URL = 'https://tranquil-brook-11708.herokuapp.com' || 'http://localhost:3000'
 export let startFetch = () => {
     return {
         type: 'START_FETCH'
@@ -29,17 +29,17 @@ export let login = (email, password) => {
             email,
             password
         }).then((res) => {
-            if (res.status !== 200) {
-                dispatch(failLogin(res.data.message));
-                dispatch(finishFetch());
-            } else {
                 dispatch(successLogin(res.data.token));
                 dispatch(finishFetch());
-            }
         })
             .catch((err) => {
-                dispatch(failLogin('Something went wrong. Try again!'));
-                dispatch(finishFetch());
+                if (err.response) {
+                    dispatch(failLogin(err.response.data.message));
+                    dispatch(finishFetch());
+                } else {
+                    dispatch(failLogin('Oops. Something went wrong! Try again.'));
+                    dispatch(finishFetch());
+                }
             })
     }
 }
