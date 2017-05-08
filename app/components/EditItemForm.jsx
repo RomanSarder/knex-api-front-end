@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
+import {withRouter} from 'react-router-dom'
 
 class EditItemForm extends Component {
     constructor(props) {
         super(props);
     }
+    componentWillUnmount() {
+        console.log('Unmounted');
+    }
+    
+    componentWillMount() {
+        console.log('Will mount');
+    }
+    
+    
     render() {
         return (
             <div>
@@ -13,4 +23,4 @@ class EditItemForm extends Component {
     }
 }
 
-export default EditItemForm;
+export default withRouter(EditItemForm);

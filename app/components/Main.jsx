@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Home from 'Home';
 import Dashboard from 'Dashboard';
@@ -26,10 +26,12 @@ export class Main extends Component {
         return (
             <div>
                 {renderError()}
-                <Route exact={true} path="/" component={Home} />
-                <Route path="/dashboard" component={Dashboard} />
-                <Route path="/items/:id/edit" component={EditItemForm} />
-                <Route path="/items/new" component={NewItemForm}/>
+                <Switch>
+                    <Route exact={true} path="/" component={Home} />
+                    <Route exact={true} path="/dashboard" component={Dashboard} />
+                    <Route exact={true} path="/items/:id/edit" component={EditItemForm} />
+                    <Route exact={true} path="/items/new" component={NewItemForm} />
+                </Switch>
             </div>
         );
     }
