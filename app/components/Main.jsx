@@ -3,7 +3,8 @@ import { Route, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Home from 'Home';
 import Dashboard from 'Dashboard';
-import EditItemPage from 'EditItemPage';
+import EditItemForm from 'EditItemForm';
+import NewItemForm from 'NewItemForm';
 
 export class Main extends Component {
     constructor(props) {
@@ -27,7 +28,8 @@ export class Main extends Component {
                 {renderError()}
                 <Route exact={true} path="/" component={Home} />
                 <Route path="/dashboard" component={Dashboard} />
-                <Route path="/items/:id/edit" component={EditItemPage} />
+                <Route path="/items/:id/edit" component={EditItemForm} />
+                <Route path="/items/new" component={NewItemForm}/>
             </div>
         );
     }

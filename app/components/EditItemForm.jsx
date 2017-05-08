@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class ItemPage extends Component {
+class EditItemForm extends Component {
     constructor(props) {
         super(props);
     }
@@ -13,4 +13,4 @@ class ItemPage extends Component {
     }
 }
 
-export default ItemPage;
+export default EditItemForm;
