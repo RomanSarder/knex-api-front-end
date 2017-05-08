@@ -2,7 +2,15 @@ import * as actions from 'actions';
 import thunk from 'redux-thunk';
 import expect from 'expect';
 import configureMockStore from 'redux-mock-store';
+import axios from 'axios';
 const createMockStore = configureMockStore([thunk]);
+let token;
+axios.post('http://localhost:3000/api/login', {
+    email: "roman@ya.ru",
+    password: '123'
+}).then((res) => {
+    token = res.data.token;
+})
 
 describe('ACTIONS', () => {
     it('should generate START_FETCH action', () => {
@@ -99,6 +107,22 @@ describe('ASYNC ACTIONS', () => {
             expect(actions[1]).toInclude({type: 'ADD_ITEMS'});
             expect(actions[1].items).toBeA('array');
             expect(actions[1].items.length).toBeMoreThan(0);
+            done()
+        })
+        .catch(done);
+    });
+    it('should update item and generate finishFetch', (done) => {
+        const store = createMockStore();
+        store.dispatch(actions.updateItem({
+            name: 'Notebook',
+            number: 13,
+            state: 'In transit',
+            id: 1,
+            token
+        })).then(() => {
+            const actions = store.getActions();
+            expect(actions[0]).toInclude({type: 'START_FETCH'});
+            expect(actions[1]).toInclude({type: 'FINISH_FETCH'});
             done()
         })
         .catch(done);

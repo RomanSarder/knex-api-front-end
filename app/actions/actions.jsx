@@ -92,3 +92,26 @@ export let fetchItems = () => {
             })
     } 
 }
+export let updateItem = (obj) => {
+    return (dispatch, getState) => {
+        dispatch(startFetch());
+        return axios.patch(`${URL}/api/items/${obj.id}`, {
+            name: obj.name,
+            number: obj.number,
+            state: obj.state,
+            token: obj.token
+        })
+        .then((res) => {
+            dispatch(finishFetch());
+        })
+        .catch((err) => {
+                if (err.response) {
+                    dispatch(errorMessage(err.response.data.message));
+                    dispatch(finishFetch());
+                } else {
+                    dispatch(errorMessage('Oops. Something went wrong! Try again.'));
+                    dispatch(finishFetch());
+                }
+            })
+    }
+}
