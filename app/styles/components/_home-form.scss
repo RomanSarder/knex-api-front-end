@@ -32,22 +32,17 @@
             border: 1px solid black;
         }
     }
-    .error-message {
-        position: absolute;
-        top: 0;
-        padding: 1em;
-        background-color: red;
-        width: 100%;
-        text-align: center;
-        color: white;
-    }
-    .success-message {
-        position: absolute;
-        top: 0;
-        padding: 1em;
-        background-color: green;
-        width: 100%;
-        text-align: center;
-        color: white;
-    }
+}
+
+.error {
+    position: absolute;
+    top: 0;
+    padding: 0.5em;
+    background-color: $error-red;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1em;
+    transition: all 0.3s;
 }

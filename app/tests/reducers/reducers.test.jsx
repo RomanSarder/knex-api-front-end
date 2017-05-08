@@ -12,6 +12,21 @@ describe('Reducers', () => {
             let res = reducers.errorReducer(df(''), df(action));
             expect(res).toEqual(action.message);
         });
+        it('should set auth error', () => {
+            let action = {
+                type: 'FAIL_LOGIN',
+                message: 'sadasda'
+            };
+            let res = reducers.errorReducer(df(''), df(action));
+            expect(res).toEqual(action.message)
+        });
+        it('should remove error', () => {
+            let action = {
+                type: 'REMOVE_ERROR'
+            };
+            let res = reducers.errorReducer(df(''), df(action));
+            expect(res).toEqual('');
+        });
     });
     describe('authReducer', () => {
         it('it should set token', () => {
@@ -21,14 +36,6 @@ describe('Reducers', () => {
             };
             let res = reducers.authReducer(df({}), df(action));
             expect(res).toInclude({token: action.token});
-        });
-        it('should set error', () => {
-            let action = {
-                type: 'FAIL_LOGIN',
-                message: 'sadasda'
-            };
-            let res = reducers.authReducer(df({}), df(action));
-            expect(res).toInclude({error: action.message});
         });
     });
     describe('isLoadingReducer', () => {

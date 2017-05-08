@@ -25,21 +25,11 @@ class Home extends Component {
                 return 'Submit';
             }
         }
-        let renderMessage = () => {
-            if (auth.error) {
-                return <p className="error-message">{auth.error}</p>;
-            } else if (auth.token) {
-                return <p className="success-message">You have successfully logined in.</p>
-            } else {
-                return <p></p>
-            }
-        }
         if (auth.token) {
             return (<Redirect to='/dashboard'/>)
         }
         return (
             <div className="form-container">
-                {renderMessage()}
                 <form onSubmit={this.handleSubmit}>
                     <div className="field">
                         <label>First Name</label>

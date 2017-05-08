@@ -5394,7 +5394,7 @@ module.exports = defaults;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.fetchItems = exports.errorMessage = exports.deleteItems = exports.addItems = exports.login = exports.failLogin = exports.successLogin = exports.finishFetch = exports.startFetch = undefined;
+exports.fetchItems = exports.errorMessage = exports.deleteItems = exports.addItems = exports.removeError = exports.setError = exports.login = exports.failLogin = exports.successLogin = exports.finishFetch = exports.startFetch = undefined;
 
 var _axios = __webpack_require__(119);
 
@@ -5436,13 +5436,26 @@ var login = exports.login = function login(email, password) {
             dispatch(finishFetch());
         }).catch(function (err) {
             if (err.response) {
-                dispatch(failLogin(err.response.data.message));
+                dispatch(setError(err.response.data.message));
                 dispatch(finishFetch());
             } else {
-                dispatch(failLogin('Oops. Something went wrong! Try again.'));
+                dispatch(setError('Oops. Something went wrong! Try again.'));
                 dispatch(finishFetch());
             }
         });
+    };
+};
+var setError = exports.setError = function setError(message) {
+    return function (dispatch, getState) {
+        dispatch(errorMessage(message));
+        setTimeout(function () {
+            dispatch(removeError());
+        }, 2000);
+    };
+};
+var removeError = exports.removeError = function removeError() {
+    return {
+        type: 'REMOVE_ERROR'
     };
 };
 var addItems = exports.addItems = function addItems(items) {
@@ -13806,30 +13819,12 @@ var Home = function (_Component) {
                     return 'Submit';
                 }
             };
-            var renderMessage = function renderMessage() {
-                if (auth.error) {
-                    return _react2.default.createElement(
-                        'p',
-                        { className: 'error-message' },
-                        auth.error
-                    );
-                } else if (auth.token) {
-                    return _react2.default.createElement(
-                        'p',
-                        { className: 'success-message' },
-                        'You have successfully logined in.'
-                    );
-                } else {
-                    return _react2.default.createElement('p', null);
-                }
-            };
             if (auth.token) {
                 return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/dashboard' });
             }
             return _react2.default.createElement(
                 'div',
                 { className: 'form-container' },
-                renderMessage(),
                 _react2.default.createElement(
                     'form',
                     { onSubmit: this.handleSubmit },
@@ -14078,11 +14073,29 @@ var Main = exports.Main = function (_Component) {
     _createClass(Main, [{
         key: 'render',
         value: function render() {
-            var auth = this.props.auth;
+            var _props = this.props,
+                auth = _props.auth,
+                error = _props.error;
 
+            var renderError = function renderError() {
+                if (error) {
+                    return _react2.default.createElement(
+                        'div',
+                        { className: 'error' },
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            error
+                        )
+                    );
+                } else {
+                    return _react2.default.createElement('div', null);
+                }
+            };
             return _react2.default.createElement(
                 'div',
                 null,
+                renderError(),
                 _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2.default }),
                 _react2.default.createElement(_reactRouterDom.Route, { path: '/dashboard', component: _Dashboard2.default }),
                 _react2.default.createElement(_reactRouterDom.Route, { path: '/items/:id', component: _ItemPage2.default })
@@ -14121,10 +14134,6 @@ var authReducer = exports.authReducer = function authReducer() {
             return _extends({}, state, {
                 token: action.token
             });
-        case 'FAIL_LOGIN':
-            return _extends({}, state, {
-                error: action.message
-            });
         default:
             return state;
     }
@@ -14162,6 +14171,10 @@ var errorReducer = exports.errorReducer = function errorReducer() {
     switch (action.type) {
         case 'ERROR':
             return action.message;
+        case 'FAIL_LOGIN':
+            return action.message;
+        case 'REMOVE_ERROR':
+            return '';
         default:
             return state;
     }
@@ -14216,7 +14229,7 @@ exports = module.exports = __webpack_require__(145)();
 
 
 // module
-exports.push([module.i, ".form-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  height: 100vh; }\n  .form-container form {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center; }\n    .form-container form .field {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      flex-wrap: wrap;\n      margin-bottom: 2em; }\n      .form-container form .field label {\n        width: 100%;\n        text-align: center;\n        font-size: 2em; }\n      .form-container form .field input {\n        width: 100%;\n        height: 2em; }\n    .form-container form button {\n      width: 100%;\n      background-color: white;\n      font-size: 1.3em;\n      border: 1px solid black; }\n  .form-container .error-message {\n    position: absolute;\n    top: 0;\n    padding: 1em;\n    background-color: red;\n    width: 100%;\n    text-align: center;\n    color: white; }\n  .form-container .success-message {\n    position: absolute;\n    top: 0;\n    padding: 1em;\n    background-color: green;\n    width: 100%;\n    text-align: center;\n    color: white; }\n\n.dashboard-item {\n  width: 30%;\n  display: flex;\n  flex-direction: column;\n  text-align: center;\n  border: 1px #D3D3D3 solid; }\n  .dashboard-item .info-container {\n    display: flex;\n    flex-direction: row;\n    justify-content: center; }\n    .dashboard-item .info-container span {\n      margin: auto 1em; }\n  .dashboard-item button {\n    padding: 0.5em;\n    background-color: white;\n    cursor: pointer;\n    font-size: 1em;\n    width: 50%;\n    border: none; }\n  .dashboard-item .last-log {\n    padding: 1em;\n    font-weight: bold;\n    color: white;\n    background-color: #ff9800; }\n  .dashboard-item .created {\n    background-color: #2196F3;\n    color: white;\n    font-weight: bold;\n    padding: 1em;\n    margin-top: 1em; }\n  .dashboard-item .edit-button {\n    color: #ff9800; }\n  .dashboard-item .delete-button {\n    color: #f44336; }\n\n.dashboard-container {\n  display: flex;\n  align-content: space-around;\n  flex-wrap: wrap;\n  justify-content: space-around; }\n", ""]);
+exports.push([module.i, ".form-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  height: 100vh; }\n  .form-container form {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center; }\n    .form-container form .field {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      flex-wrap: wrap;\n      margin-bottom: 2em; }\n      .form-container form .field label {\n        width: 100%;\n        text-align: center;\n        font-size: 2em; }\n      .form-container form .field input {\n        width: 100%;\n        height: 2em; }\n    .form-container form button {\n      width: 100%;\n      background-color: white;\n      font-size: 1.3em;\n      border: 1px solid black; }\n\n.error {\n  position: absolute;\n  top: 0;\n  padding: 0.5em;\n  background-color: #f44336;\n  width: 100%;\n  text-align: center;\n  color: white;\n  font-weight: bold;\n  font-size: 1em;\n  transition: all 0.3s; }\n\n.dashboard-item {\n  width: 30%;\n  display: flex;\n  flex-direction: column;\n  text-align: center;\n  border: 1px #D3D3D3 solid; }\n  .dashboard-item .info-container {\n    display: flex;\n    flex-direction: row;\n    justify-content: center; }\n    .dashboard-item .info-container span {\n      margin: auto 1em; }\n  .dashboard-item button {\n    padding: 0.5em;\n    background-color: white;\n    cursor: pointer;\n    font-size: 1em;\n    width: 50%;\n    border: none; }\n  .dashboard-item .last-log {\n    padding: 1em;\n    font-weight: bold;\n    color: white;\n    background-color: #ff9800; }\n  .dashboard-item .created {\n    background-color: #2196F3;\n    color: white;\n    font-weight: bold;\n    padding: 1em;\n    margin-top: 1em; }\n  .dashboard-item .edit-button {\n    color: #ff9800; }\n  .dashboard-item .delete-button {\n    color: #f44336; }\n\n.dashboard-container {\n  display: flex;\n  align-content: space-around;\n  flex-wrap: wrap;\n  justify-content: space-around; }\n", ""]);
 
 // exports
 

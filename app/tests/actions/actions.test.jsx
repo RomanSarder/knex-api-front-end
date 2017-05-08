@@ -58,6 +58,13 @@ describe('ACTIONS', () => {
         let res = actions.errorMessage(action.message);
         expect(res).toEqual(action);
     });
+    it('should generate REMOVE_ERROR action', () => {
+        let action = {
+            type: 'REMOVE_ERROR'
+        };
+        let res = actions.removeError();
+        expect(res).toEqual(action);
+    });
 });
 describe('ASYNC ACTIONS', () => {
     const email = 'roman@ya.ru';
@@ -78,9 +85,7 @@ describe('ASYNC ACTIONS', () => {
         store.dispatch(actions.login('1234', 'adsad')).then(() => {
             const actions = store.getActions();
             expect(actions[0]).toInclude({type: 'START_FETCH'});
-            expect(actions[1]).toInclude({type: 'FAIL_LOGIN'});
-            expect(actions[1].message).toNotEqual('Something went wrong. Try again!')
-            expect(actions[1].message).toBeA('string');
+            expect(actions[1]).toInclude({type: 'ERROR'});
             expect(actions[2]).toInclude({type: 'FINISH_FETCH'});
             done()
         }).catch(done);

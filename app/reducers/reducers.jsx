@@ -5,11 +5,6 @@ export let authReducer = (state = {}, action) => {
                 ...state,
                 token: action.token
             }
-        case 'FAIL_LOGIN':
-            return {
-                ...state,
-                error: action.message
-            }
         default:
             return state;
     }
@@ -41,6 +36,10 @@ export let errorReducer = (state = '', action) => {
     switch (action.type) {
         case 'ERROR':
             return action.message;
+        case 'FAIL_LOGIN':
+            return action.message
+        case 'REMOVE_ERROR':
+            return ''
         default:
             return state;
     }

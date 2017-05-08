@@ -34,14 +34,27 @@ export let login = (email, password) => {
         })
             .catch((err) => {
                 if (err.response) {
-                    dispatch(failLogin(err.response.data.message));
+                    dispatch(setError(err.response.data.message));
                     dispatch(finishFetch());
                 } else {
-                    dispatch(failLogin('Oops. Something went wrong! Try again.'));
+                    dispatch(setError('Oops. Something went wrong! Try again.'));
                     dispatch(finishFetch());
                 }
             })
     }
+}
+export let setError = (message) => {
+    return (dispatch, getState) => {
+        dispatch(errorMessage(message));
+        setTimeout(() => {
+            dispatch(removeError())
+        }, 2000);
+    }
+}
+export let removeError = () => {
+    return {
+        type: 'REMOVE_ERROR'
+    };
 }
 export let addItems = (items) => {
     return {
