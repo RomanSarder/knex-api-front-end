@@ -13902,7 +13902,7 @@ var Item = function (_Component) {
     }
 
     _createClass(Item, [{
-        key: "render",
+        key: 'render',
         value: function render() {
             var item = this.props.item;
             var _item$logs = item.logs[item.logs.length - 1],
@@ -13910,50 +13910,52 @@ var Item = function (_Component) {
                 author = _item$logs.author;
 
             return _react2.default.createElement(
-                "div",
-                { className: "dashboard-item" },
+                'div',
+                { className: 'dashboard-item', onClick: function onClick() {
+                        console.log('Clicked');
+                    } },
                 _react2.default.createElement(
-                    "h3",
+                    'h3',
                     null,
                     item.name
                 ),
                 _react2.default.createElement(
-                    "div",
-                    { className: "info-container" },
+                    'div',
+                    { className: 'info-container' },
                     _react2.default.createElement(
-                        "span",
+                        'span',
                         null,
-                        "Amount: ",
+                        'Amount: ',
                         item.number
                     ),
                     _react2.default.createElement(
-                        "span",
+                        'span',
                         null,
-                        item.state === 1 ? 'In warehouse' : 'In transit'
+                        item.state
                     )
                 ),
                 _react2.default.createElement(
-                    "span",
-                    { className: "created" },
-                    action + " by " + author
+                    'span',
+                    { className: 'created' },
+                    action + ' by ' + author
                 ),
                 _react2.default.createElement(
-                    "span",
-                    { className: "last-log" },
-                    "Last log: " + item.logs[0].action + " by " + item.logs[0].author
+                    'span',
+                    { className: 'last-log' },
+                    'Last log: ' + item.logs[0].action + ' by ' + item.logs[0].author
                 ),
                 _react2.default.createElement(
-                    "div",
-                    { className: "buttons" },
+                    'div',
+                    { className: 'buttons' },
                     _react2.default.createElement(
-                        "button",
-                        { className: "edit-button" },
-                        "Edit"
+                        'button',
+                        { className: 'edit-button' },
+                        'Edit'
                     ),
                     _react2.default.createElement(
-                        "button",
-                        { className: "delete-button" },
-                        "Delete"
+                        'button',
+                        { className: 'delete-button' },
+                        'Delete'
                     )
                 )
             );
@@ -13966,62 +13968,7 @@ var Item = function (_Component) {
 exports.default = Item;
 
 /***/ }),
-/* 140 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(6);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ItemPage = function (_Component) {
-    _inherits(ItemPage, _Component);
-
-    function ItemPage(props) {
-        _classCallCheck(this, ItemPage);
-
-        return _possibleConstructorReturn(this, (ItemPage.__proto__ || Object.getPrototypeOf(ItemPage)).call(this, props));
-    }
-
-    _createClass(ItemPage, [{
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(
-                    'h2',
-                    null,
-                    'ItemPage ',
-                    this.props.match.params.id,
-                    ' page'
-                )
-            );
-        }
-    }]);
-
-    return ItemPage;
-}(_react.Component);
-
-exports.default = ItemPage;
-
-/***/ }),
+/* 140 */,
 /* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14051,9 +13998,9 @@ var _Dashboard = __webpack_require__(137);
 
 var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
-var _ItemPage = __webpack_require__(140);
+var _EditItemPage = __webpack_require__(301);
 
-var _ItemPage2 = _interopRequireDefault(_ItemPage);
+var _EditItemPage2 = _interopRequireDefault(_EditItemPage);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14100,7 +14047,7 @@ var Main = exports.Main = function (_Component) {
                 renderError(),
                 _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2.default }),
                 _react2.default.createElement(_reactRouterDom.Route, { path: '/dashboard', component: _Dashboard2.default }),
-                _react2.default.createElement(_reactRouterDom.Route, { path: '/items/:id', component: _ItemPage2.default })
+                _react2.default.createElement(_reactRouterDom.Route, { path: '/items/:id/edit', component: _EditItemPage2.default })
             );
         }
     }]);
@@ -14231,7 +14178,7 @@ exports = module.exports = __webpack_require__(145)();
 
 
 // module
-exports.push([module.i, ".form-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  height: 100vh; }\n  .form-container form {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center; }\n    .form-container form .field {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      flex-wrap: wrap;\n      margin-bottom: 2em; }\n      .form-container form .field label {\n        width: 100%;\n        text-align: center;\n        font-size: 2em; }\n      .form-container form .field input {\n        width: 100%;\n        height: 2em; }\n    .form-container form button {\n      width: 100%;\n      background-color: white;\n      font-size: 1.3em;\n      border: 1px solid black; }\n\n.error {\n  position: absolute;\n  top: 0;\n  padding: 0.5em;\n  background-color: #f44336;\n  width: 100%;\n  text-align: center;\n  color: white;\n  font-weight: bold;\n  font-size: 1em;\n  transition: all 0.3s; }\n\n.dashboard-item {\n  cursor: pointer;\n  transition: all 0.3s;\n  width: 30%;\n  display: flex;\n  flex-direction: column;\n  text-align: center;\n  border: 1px #D3D3D3 solid; }\n  .dashboard-item:hover {\n    border: 2px solid cadetblue; }\n  .dashboard-item .info-container {\n    display: flex;\n    flex-direction: row;\n    justify-content: center; }\n    .dashboard-item .info-container span {\n      margin: auto 1em; }\n  .dashboard-item button {\n    padding: 0.5em;\n    background-color: white;\n    cursor: pointer;\n    font-size: 1em;\n    width: 50%;\n    border: none;\n    transition: all 0.3s; }\n  .dashboard-item .last-log {\n    padding: 1em;\n    font-weight: bold;\n    color: white;\n    background-color: #ff9800; }\n  .dashboard-item .created {\n    background-color: #2196F3;\n    color: white;\n    font-weight: bold;\n    padding: 1em;\n    margin-top: 1em; }\n  .dashboard-item .edit-button {\n    color: #ff9800; }\n    .dashboard-item .edit-button:hover {\n      color: white;\n      background-color: #ff9800; }\n  .dashboard-item .delete-button {\n    color: #f44336; }\n    .dashboard-item .delete-button:hover {\n      color: white;\n      background-color: #f44336; }\n\n.dashboard-container {\n  display: flex;\n  align-content: space-around;\n  flex-wrap: wrap;\n  justify-content: space-around; }\n", ""]);
+exports.push([module.i, ".form-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  height: 100vh; }\n  .form-container form {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center; }\n    .form-container form .field {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      flex-wrap: wrap;\n      margin-bottom: 2em; }\n      .form-container form .field label {\n        width: 100%;\n        text-align: center;\n        font-size: 2em; }\n      .form-container form .field input {\n        width: 100%;\n        height: 2em; }\n    .form-container form button {\n      width: 100%;\n      background-color: white;\n      font-size: 1.3em;\n      border: 1px solid black; }\n\n.error {\n  position: absolute;\n  top: 0;\n  padding: 0.5em;\n  background-color: #f44336;\n  width: 100%;\n  text-align: center;\n  color: white;\n  font-weight: bold;\n  font-size: 1em;\n  transition: all 0.3s; }\n\n.dashboard-item {\n  width: 30%;\n  display: flex;\n  flex-direction: column;\n  text-align: center;\n  border: 1px #D3D3D3 solid; }\n  .dashboard-item .info-container {\n    display: flex;\n    flex-direction: row;\n    justify-content: center; }\n    .dashboard-item .info-container span {\n      margin: auto 1em; }\n  .dashboard-item button {\n    padding: 0.5em;\n    background-color: white;\n    cursor: pointer;\n    font-size: 1em;\n    width: 50%;\n    border: none;\n    transition: all 0.3s; }\n  .dashboard-item .last-log {\n    padding: 1em;\n    font-weight: bold;\n    color: white;\n    background-color: #ff9800; }\n  .dashboard-item .created {\n    background-color: #2196F3;\n    color: white;\n    font-weight: bold;\n    padding: 1em;\n    margin-top: 1em; }\n  .dashboard-item .edit-button {\n    color: #ff9800; }\n    .dashboard-item .edit-button:hover {\n      color: white;\n      background-color: #ff9800; }\n  .dashboard-item .delete-button {\n    color: #f44336; }\n    .dashboard-item .delete-button:hover {\n      color: white;\n      background-color: #f44336; }\n\n.dashboard-container {\n  display: flex;\n  align-content: space-around;\n  flex-wrap: wrap;\n  justify-content: space-around; }\n", ""]);
 
 // exports
 
@@ -30014,6 +29961,62 @@ module.exports = function(module) {
 __webpack_require__(118);
 module.exports = __webpack_require__(117);
 
+
+/***/ }),
+/* 301 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ItemPage = function (_Component) {
+    _inherits(ItemPage, _Component);
+
+    function ItemPage(props) {
+        _classCallCheck(this, ItemPage);
+
+        return _possibleConstructorReturn(this, (ItemPage.__proto__ || Object.getPrototypeOf(ItemPage)).call(this, props));
+    }
+
+    _createClass(ItemPage, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'h2',
+                    null,
+                    'ItemPage ',
+                    this.props.match.params.id,
+                    ' edit page'
+                )
+            );
+        }
+    }]);
+
+    return ItemPage;
+}(_react.Component);
+
+exports.default = ItemPage;
 
 /***/ })
 /******/ ]);

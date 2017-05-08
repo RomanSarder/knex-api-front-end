@@ -3,7 +3,7 @@ import { Route, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Home from 'Home';
 import Dashboard from 'Dashboard';
-import ItemPage from 'ItemPage';
+import EditItemPage from 'EditItemPage';
 
 export class Main extends Component {
     constructor(props) {
@@ -27,7 +27,7 @@ export class Main extends Component {
                 {renderError()}
                 <Route exact={true} path="/" component={Home} />
                 <Route path="/dashboard" component={Dashboard} />
-                <Route path="/items/:id" component={ItemPage} />
+                <Route path="/items/:id/edit" component={EditItemPage} />
             </div>
         );
     }

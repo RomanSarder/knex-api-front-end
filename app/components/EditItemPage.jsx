@@ -7,7 +7,7 @@ class ItemPage extends Component {
     render() {
         return (
             <div>
-              <h2>ItemPage {this.props.match.params.id} page</h2>  
+              <h2>ItemPage {this.props.match.params.id} edit page</h2>  
             </div>
         );
     }
