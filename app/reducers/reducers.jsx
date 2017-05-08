@@ -31,6 +31,8 @@ export let itemsReducer = (state = [], action) => {
                 ...state,
                 ...action.items
             ]
+        case 'DELETE_ITEMS':
+            return [];
         default:
             return state;
     }

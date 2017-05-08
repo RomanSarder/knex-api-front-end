@@ -57,5 +57,12 @@ describe('Reducers', () => {
             let res = reducers.itemsReducer(df([]), df(action));
             expect(res).toEqual(action.items);
         });
+        it('should delete items', () => {
+            let action = {
+                type: 'DELETE_ITEMS'
+            };
+            let res = reducers.itemsReducer(df([1,2,3]), df(action));
+            expect(res).toEqual([]);
+        })
     });
 });

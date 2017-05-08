@@ -43,6 +43,13 @@ describe('ACTIONS', () => {
         let res = actions.addItems(action.items);
         expect(res).toEqual(action);
     });
+    it('should generate DELETE_ITEMS action', () => {
+        let action = {
+            type: 'DELETE_ITEMS'
+        };
+        let res = actions.deleteItems();
+        expect(res).toEqual(action);
+    });
     it('should generate ERROR action with message', () => {
         let action = {
             type: 'ERROR',

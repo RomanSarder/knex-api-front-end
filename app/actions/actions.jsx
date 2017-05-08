@@ -49,6 +49,11 @@ export let addItems = (items) => {
         items,
     }
 }
+export let deleteItems = () => {
+    return {
+        type: 'DELETE_ITEMS'
+    }
+}
 export let errorMessage = (message) => {
     return {
         type: 'ERROR',

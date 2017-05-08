@@ -1,9 +1,49 @@
 .dashboard-item {
     width: 30%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border: 1px $light-grey solid;
+    .info-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        span {
+            margin: auto 1em;
+        }
+    }
+    button {
+        padding: 0.5em;
+        background-color: white;
+        cursor: pointer;
+        font-size: 1em;
+        width: 50%;
+        border: none;
+    }
+    .last-log {
+        padding: 1em;
+        font-weight: bold;
+        color: white;
+        background-color: $warning-yellow;
+    }
+    .created {
+        background-color: $info-blue;
+        color: white;
+        font-weight: bold;
+        padding: 1em;
+        margin-top: 1em;
+    }
+    .edit-button {
+        color: $warning-yellow;
+    }
+    .delete-button {
+        color: $error-red;
+    }
 }
 
 .dashboard-container {
     display: flex;
     align-content: space-around;
     flex-wrap: wrap;
+    justify-content: space-around;
 }
