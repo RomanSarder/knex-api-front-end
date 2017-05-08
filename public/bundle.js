@@ -5389,7 +5389,7 @@ module.exports = defaults;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(process) {
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -5402,7 +5402,7 @@ var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var URL = 'https://tranquil-brook-11708.herokuapp.com' || 'http://localhost:3000';
+var URL = process.env.URL || 'http://localhost:3000';
 var startFetch = exports.startFetch = function startFetch() {
     return {
         type: 'START_FETCH'
@@ -5492,6 +5492,7 @@ var fetchItems = exports.fetchItems = function fetchItems() {
         });
     };
 };
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
 /* 43 */
@@ -13733,6 +13734,7 @@ var DashBoard = function (_Component) {
                     renderItems()
                 );
             } else {
+                this.props.dispatch(actions.setError('You must log in.'));
                 return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' });
             }
         }
@@ -14229,7 +14231,7 @@ exports = module.exports = __webpack_require__(145)();
 
 
 // module
-exports.push([module.i, ".form-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  height: 100vh; }\n  .form-container form {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center; }\n    .form-container form .field {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      flex-wrap: wrap;\n      margin-bottom: 2em; }\n      .form-container form .field label {\n        width: 100%;\n        text-align: center;\n        font-size: 2em; }\n      .form-container form .field input {\n        width: 100%;\n        height: 2em; }\n    .form-container form button {\n      width: 100%;\n      background-color: white;\n      font-size: 1.3em;\n      border: 1px solid black; }\n\n.error {\n  position: absolute;\n  top: 0;\n  padding: 0.5em;\n  background-color: #f44336;\n  width: 100%;\n  text-align: center;\n  color: white;\n  font-weight: bold;\n  font-size: 1em;\n  transition: all 0.3s; }\n\n.dashboard-item {\n  width: 30%;\n  display: flex;\n  flex-direction: column;\n  text-align: center;\n  border: 1px #D3D3D3 solid; }\n  .dashboard-item .info-container {\n    display: flex;\n    flex-direction: row;\n    justify-content: center; }\n    .dashboard-item .info-container span {\n      margin: auto 1em; }\n  .dashboard-item button {\n    padding: 0.5em;\n    background-color: white;\n    cursor: pointer;\n    font-size: 1em;\n    width: 50%;\n    border: none; }\n  .dashboard-item .last-log {\n    padding: 1em;\n    font-weight: bold;\n    color: white;\n    background-color: #ff9800; }\n  .dashboard-item .created {\n    background-color: #2196F3;\n    color: white;\n    font-weight: bold;\n    padding: 1em;\n    margin-top: 1em; }\n  .dashboard-item .edit-button {\n    color: #ff9800; }\n  .dashboard-item .delete-button {\n    color: #f44336; }\n\n.dashboard-container {\n  display: flex;\n  align-content: space-around;\n  flex-wrap: wrap;\n  justify-content: space-around; }\n", ""]);
+exports.push([module.i, ".form-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  height: 100vh; }\n  .form-container form {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center; }\n    .form-container form .field {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      flex-wrap: wrap;\n      margin-bottom: 2em; }\n      .form-container form .field label {\n        width: 100%;\n        text-align: center;\n        font-size: 2em; }\n      .form-container form .field input {\n        width: 100%;\n        height: 2em; }\n    .form-container form button {\n      width: 100%;\n      background-color: white;\n      font-size: 1.3em;\n      border: 1px solid black; }\n\n.error {\n  position: absolute;\n  top: 0;\n  padding: 0.5em;\n  background-color: #f44336;\n  width: 100%;\n  text-align: center;\n  color: white;\n  font-weight: bold;\n  font-size: 1em;\n  transition: all 0.3s; }\n\n.dashboard-item {\n  cursor: pointer;\n  transition: all 0.3s;\n  width: 30%;\n  display: flex;\n  flex-direction: column;\n  text-align: center;\n  border: 1px #D3D3D3 solid; }\n  .dashboard-item:hover {\n    border: 2px solid cadetblue; }\n  .dashboard-item .info-container {\n    display: flex;\n    flex-direction: row;\n    justify-content: center; }\n    .dashboard-item .info-container span {\n      margin: auto 1em; }\n  .dashboard-item button {\n    padding: 0.5em;\n    background-color: white;\n    cursor: pointer;\n    font-size: 1em;\n    width: 50%;\n    border: none;\n    transition: all 0.3s; }\n  .dashboard-item .last-log {\n    padding: 1em;\n    font-weight: bold;\n    color: white;\n    background-color: #ff9800; }\n  .dashboard-item .created {\n    background-color: #2196F3;\n    color: white;\n    font-weight: bold;\n    padding: 1em;\n    margin-top: 1em; }\n  .dashboard-item .edit-button {\n    color: #ff9800; }\n    .dashboard-item .edit-button:hover {\n      color: white;\n      background-color: #ff9800; }\n  .dashboard-item .delete-button {\n    color: #f44336; }\n    .dashboard-item .delete-button:hover {\n      color: white;\n      background-color: #f44336; }\n\n.dashboard-container {\n  display: flex;\n  align-content: space-around;\n  flex-wrap: wrap;\n  justify-content: space-around; }\n", ""]);
 
 // exports
 

@@ -1,4 +1,9 @@
 .dashboard-item {
+    &:hover {
+        border: 2px solid cadetblue;
+    }
+    cursor: pointer;
+    transition: all 0.3s;
     width: 30%;
     display: flex;
     flex-direction: column;
@@ -19,6 +24,7 @@
         font-size: 1em;
         width: 50%;
         border: none;
+        transition: all 0.3s;
     }
     .last-log {
         padding: 1em;
@@ -35,8 +41,16 @@
     }
     .edit-button {
         color: $warning-yellow;
+        &:hover {
+            color: white;
+            background-color: $warning-yellow;
+        }
     }
     .delete-button {
+        &:hover {
+            color: white;
+            background-color: $error-red;
+        }
         color: $error-red;
     }
 }

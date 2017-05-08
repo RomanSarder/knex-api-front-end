@@ -32,6 +32,7 @@ class DashBoard extends Component {
                 </div>
             );
         } else {
+            this.props.dispatch(actions.setError('You must log in.'))
             return <Redirect to='/'/>
         }
     }

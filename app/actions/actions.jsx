@@ -1,5 +1,5 @@
 import axios from 'axios';
-const URL = 'https://tranquil-brook-11708.herokuapp.com' || 'http://localhost:3000'
+const URL = process.env.URL || 'http://localhost:3000'
 export let startFetch = () => {
     return {
         type: 'START_FETCH'
