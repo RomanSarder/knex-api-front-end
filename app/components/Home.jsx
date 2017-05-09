@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import * as actions from 'actions';
-import {Redirect} from 'react-router-dom';
 
 class Home extends Component {
     constructor(props) {
@@ -24,9 +23,6 @@ class Home extends Component {
             } else {
                 return 'Submit';
             }
-        }
-        if (auth.token) {
-            return (<Redirect to='/dashboard'/>)
         }
         return (
             <div className="form-container">

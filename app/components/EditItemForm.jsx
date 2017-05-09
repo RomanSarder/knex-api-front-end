@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter, Redirect } from 'react-router-dom'
 import {connect} from 'react-redux';
 import * as actions from 'actions';
 
@@ -33,10 +32,6 @@ class EditItemForm extends Component {
             } else {
                 return 'Submit';
             }
-        }
-        if (!this.props.auth.token) {
-            console.log('Hit redirect');
-            return <Redirect to="/"/>
         }
         return (
             <div className="form-container">

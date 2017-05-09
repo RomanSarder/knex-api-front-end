@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect, Link, withRouter } from 'react-router-dom'
 import * as actions from 'actions';
 
 class DashBoard extends Component {
@@ -30,30 +29,24 @@ class DashBoard extends Component {
                         <span className="created">{`${action} by ${author}`}</span>
                         <span className="last-log">{`Last log: ${item.logs[0].action} by ${item.logs[0].author}`}</span>
                         <div className="buttons">
-                            <Link to={`/items/${item.id}/edit`}>Edit</Link>
-                            <Link to='/'>Delete</Link>
+                            {/*<Link to={`/items/${item.id}/edit`}>Edit</Link>
+                            <Link to='/'>Delete</Link>*/}
                         </div>
                     </div>
                 );
             })
         }
-
-        if (this.props.auth.token) {
             return (
                 <div className="dashboard-container">
                     {renderItems()}
                 </div>
             );
-        } else {
-            this.props.dispatch(actions.setError('You must log in.'))
-            return <Redirect to='/' />
-        }
     }
 }
 
-export default withRouter(connect(
+export default connect(
     (state) => {
         return state;
     }
-)(DashBoard));
+)(DashBoard);
 
