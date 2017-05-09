@@ -94,18 +94,18 @@ export let fetchItems = () => {
 }
 export let updateStoreItem = (updated) => {
     return {
-        type: 'UPDATE_STORE_ITEM',
+        type: 'UPDATE_ITEM',
         updated
     }
 }
-export let updateItem = (obj) => {
+export let updateItem = (update) => {
     return (dispatch, getState) => {
         dispatch(startFetch());
-        return axios.patch(`${URL}/api/items/${obj.id}`, {
-            name: obj.name,
-            number: obj.number,
-            state: obj.state,
-            token: obj.token
+        return axios.patch(`${URL}/api/items/${update.id}`, {
+            name: update.name,
+            number: update.number,
+            state: update.state,
+            token: update.token
         })
         .then((res) => {
             dispatch(updateStoreItem(res.data));
@@ -121,4 +121,34 @@ export let updateItem = (obj) => {
                 }
             })
     }
+}
+export let createItem = (created) => {
+    return (dispatch, getState) => {
+        dispatch(startFetch());
+        return axios.post(`${URL}/api/items`, {
+            name: created.name,
+            number: created.number,
+            state: created.state,
+            token: created.token
+        })
+        .then((res) => {
+            dispatch(createStoreItem(res.data));
+            dispatch(finishFetch());
+        })
+        .catch((err) => {
+                if (err.response) {
+                    dispatch(setError(err.response.data.message));
+                    dispatch(finishFetch());
+                } else {
+                    dispatch(setError('Oops. Something went wrong!'));
+                    dispatch(finishFetch());
+                }
+            })
+    }
+}
+export let createStoreItem = (item) => {
+    return {
+        type: 'CREATE_ITEM',
+        item
+    };
 }

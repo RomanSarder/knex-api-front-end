@@ -51,11 +51,11 @@ class EditForm extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <div className="field">
                         <label>Name</label>
-                        <input type="text" name="email" placeholder="Name" ref="name" defaultValue={formInfo.name}/>
+                        <input type="text" name="name" placeholder="Name" ref="name" defaultValue={formInfo.name}/>
                     </div>
                     <div className="field">
                         <label>Number</label>
-                        <input type="text" name="password" placeholder="Number" ref="number" defaultValue={formInfo.number} />
+                        <input type="number" name="number" step="1" placeholder="Number" ref="number" defaultValue={formInfo.number} />
                     </div>
                     <div className="field">
                         <label>State</label>

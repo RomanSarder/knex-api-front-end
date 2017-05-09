@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from 'actions';
 import {push} from 'react-router-redux';
 import Item from 'Item';
+import {Link} from 'react-router';
 
 class DashBoard extends Component {
     constructor(props) {
@@ -29,9 +30,12 @@ class DashBoard extends Component {
             })
         }
             return (
+            <div>
                 <div className="dashboard-container">
+                    <Link to="/items/new"><button className="create-button">Create</button></Link>
                     {renderItems()}
                 </div>
+            </div>
             );
     }
 }

@@ -14,7 +14,6 @@ import {syncHistoryWithStore} from 'react-router-redux';
 const store = configure();
 const history = syncHistoryWithStore(browserHistory, store);
 
-//Load Foundation
 require('applicationStyles');
 
 render(

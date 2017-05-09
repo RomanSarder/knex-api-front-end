@@ -73,12 +73,20 @@ describe('ACTIONS', () => {
         let res = actions.removeError();
         expect(res).toEqual(action);
     });
-    it('should generate UPDATE_STORE_ITEM with updated item', () => {
+    it('should generate UPDATE_ITEM with updated item', () => {
         let action = {
-            type: 'UPDATE_STORE_ITEM',
+            type: 'UPDATE_ITEM',
             updated: {name: 'Lala'}
         };
         let res = actions.updateStoreItem(action.updated);
+        expect(res).toEqual(action);
+    });
+    it('should generate DELETE_ITEM with id', () => {
+        let action = {
+            type: 'DELETE_ITEM',
+            id: 1
+        };
+        let res = actions.deleteStoreItem(action.id);
         expect(res).toEqual(action);
     });
 });
@@ -130,7 +138,7 @@ describe('ASYNC ACTIONS', () => {
         })).then(() => {
             const actions = store.getActions();
             expect(actions[0]).toInclude({type: 'START_FETCH'});
-            expect(actions[1]).toInclude({type: 'UPDATE_STORE_ITEM'});
+            expect(actions[1]).toInclude({type: 'UPDATE_ITEM'});
             expect(actions[2]).toInclude({type: 'FINISH_FETCH'});
             done()
         })
@@ -149,6 +157,33 @@ describe('ASYNC ACTIONS', () => {
             expect(actions[0]).toInclude({type: 'START_FETCH'});
             expect(actions[1]).toInclude({type: 'ERROR'});
             done();
+        }).catch(done);
+    });
+    it('should create item and generate finishFetch', (done) => {
+        const store = createMockStore();
+        store.dispatch(actions.createItem({
+            name: 'PSP',
+            number: 50,
+            state: 'In transit',
+            token
+        })).then(() => {
+            const actions = store.getActions();
+            expect(actions[0]).toInclude({type: 'START_FETCH'});
+            expect(actions[1]).toInclude({type: 'CREATE_ITEM'});
+            expect(actions[2]).toNotInclude({type: 'ERROR'});
+            done();
+        }).catch(done);
+    });
+    it('should delete item', (done) => {
+        const store = createMockStore();
+        store.dispatch(actions.deleteItem(1))
+        .then(() => {
+            const actions = store.getActions();
+            expect(actions[0]).toInclude({type: 'START_FETCH'});
+            expect(actions[1]).toInclude({type: 'DELETE_ITEM'});
+            expect(action[1].id).toBeA('number');
+            expect(actions[2]).toNotInclude({type: 'ERROR'});
+            done()
         }).catch(done);
     });
 });

@@ -28,13 +28,17 @@ export let itemsReducer = (state = [], action) => {
             ]
         case 'DELETE_ITEMS':
             return [];
-        case 'UPDATE_STORE_ITEM':
+        case 'UPDATE_ITEM':
             return state.map((item) => {
                 if (item.id === action.updated.id) {
                     return action.updated;
                 }
                 return item;
             })
+        case 'CREATE_ITEM':
+            return [...state, action.item];
+        case 'DELETE_ITEM':
+            return state.filter((item) => item.id !== action.id)
         default:
             return state;
     }

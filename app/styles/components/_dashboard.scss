@@ -4,6 +4,7 @@
     flex-direction: column;
     text-align: center;
     border: 1px $light-grey solid;
+    margin-bottom: 2em;
     .info-container {
         display: flex;
         flex-direction: row;
@@ -55,4 +56,18 @@
     align-content: space-around;
     flex-wrap: wrap;
     justify-content: space-around;
+    a:first-of-type {
+        width: 100%;
+        text-align: center;
+        cursor: pointer;
+    }
+    .create-button {
+        width: 10em;
+        font-size: 1.3em;
+        padding: 0.5em 1em;
+        margin-bottom: 1em;
+        background-color: white;
+        border: 1px solid dodgerblue;
+        color: dodgerblue;
+    }
 }
