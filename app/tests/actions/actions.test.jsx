@@ -127,4 +127,19 @@ describe('ASYNC ACTIONS', () => {
         })
         .catch(done);
     });
+    it('should not update item and generate error message', (done) => {
+        const store = createMockStore();
+        store.dispatch(actions.updateItem({
+            name: 'Notebook',
+            number: 13,
+            state: 'In transit',
+            id: 22,
+            token
+        })).then(() => {
+            const actions = store.getActions();
+            expect(actions[0]).toInclude({type: 'START_FETCH'});
+            expect(actions[1]).toInclude({type: 'ERROR'});
+            done();
+        }).catch(done);
+    });
 });

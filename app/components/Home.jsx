@@ -1,11 +1,18 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import * as actions from 'actions';
+import {push} from 'react-router-redux'
 
 class Home extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.auth.token) {
+            
+            this.props.dispatch(push('/dashboard'));
+        }
     }
     
     handleSubmit(e) {
@@ -13,10 +20,10 @@ class Home extends Component {
         e.preventDefault();
         let email = this.refs.email.value;
         let password = this.refs.password.value;
-        dispatch(actions.login(email, password))
+        dispatch(actions.login(email, password));
     }
     render() {
-        let {isLoading, auth} = this.props;
+        let {isLoading, auth, dispatch} = this.props;
         let renderLoading = () => {
             if (isLoading) {
                 return 'Loading...'

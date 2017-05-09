@@ -1,5 +1,7 @@
 import * as redux from 'redux';
 import thunk from 'redux-thunk';
+import {routerReducer, routerMiddleware} from 'react-router-redux';
+import {browserHistory} from 'react-router';
 
 import {authReducer, isLoadingReducer, itemsReducer, errorReducer} from 'reducers';
 
@@ -8,9 +10,11 @@ export let configure = (initialState = {}) => {
         isLoading: isLoadingReducer,
         auth: authReducer,
         items: itemsReducer,
-        error: errorReducer
+        error: errorReducer,
+        routing: routerReducer
     });
-    let createStoreWithMiddleware = redux.applyMiddleware(thunk)(redux.createStore);
+    const middleware = routerMiddleware(browserHistory)
+    let createStoreWithMiddleware = redux.applyMiddleware(thunk, middleware)(redux.createStore);
     const store = createStoreWithMiddleware(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
     return store;
 }

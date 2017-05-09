@@ -1,37 +1,49 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import * as actions from 'actions';
+import {push} from 'react-router-redux';
 
-class EditItemForm extends Component {
+class EditForm extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+    
+    componentWillMount() {
+        let {auth, dispatch} = this.props;
+        if (!auth.token) {
+            dispatch(actions.setError('You must login.'))
+            dispatch(push('/'));
+        }
+    }
+    
     handleSubmit(e) {
         e.preventDefault();
         let state = this.refs.state[this.refs.state.selectedIndex].value
         let name = this.refs.name.value;
         let number = this.refs.number.value;
-        console.log(this.props.match.params.id);
+        let {dispatch, auth, params} = this.props;
         this.props.dispatch(actions.updateItem({
             name,
             state,
             number,
-            token: "",
-            id: this.props.match.params.id
+            token: auth.token,
+            id: params.id
         }));
+
     }
     render() {
-        let {isLoading, items, match} = this.props;
-        let thisItem = items.filter((item) => {
-            return item.id === match.params.id
-        });
+        // let {isLoading, items, match} = this.props;
+        // let thisItem = items.filter((item) => {
+        //     return item.id === match.params.id
+        // });
         let renderLoading = () => {
-            if (isLoading) {
-                return 'Loading...'
-            } else {
-                return 'Submit';
-            }
+            // if (isLoading) {
+            //     return 'Loading...'
+            // } else {
+            //     return 'Submit';
+            // }
+            return 'Submit';
         }
         return (
             <div className="form-container">
@@ -59,5 +71,5 @@ class EditItemForm extends Component {
 }
 
 export default connect((state) => {
-    return state
-})(EditItemForm);
+    return state;
+})(EditForm);

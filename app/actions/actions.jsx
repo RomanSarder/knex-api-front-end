@@ -83,10 +83,10 @@ export let fetchItems = () => {
             })
             .catch((err) => {
                 if (err.response) {
-                    dispatch(errorMessage(err.response.data.message));
+                    dispatch(setError(err.response.data.message));
                     dispatch(finishFetch());
                 } else {
-                    dispatch(errorMessage('Oops. Something went wrong! Try again.'));
+                    dispatch(setError('Oops. Something went wrong! Try again.'));
                     dispatch(finishFetch());
                 }
             })
@@ -106,10 +106,10 @@ export let updateItem = (obj) => {
         })
         .catch((err) => {
                 if (err.response) {
-                    dispatch(errorMessage(err.response.data.message));
+                    dispatch(setError(err.response.data.message));
                     dispatch(finishFetch());
                 } else {
-                    dispatch(errorMessage('Oops. Something went wrong! Try again.'));
+                    dispatch(setError('Oops. Something went wrong! Try again.'));
                     dispatch(finishFetch());
                 }
             })
