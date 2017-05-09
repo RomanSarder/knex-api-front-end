@@ -10,7 +10,6 @@ class Home extends Component {
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps.auth.token) {
-            
             this.props.dispatch(push('/dashboard'));
         }
     }

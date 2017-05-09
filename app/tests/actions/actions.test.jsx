@@ -73,6 +73,14 @@ describe('ACTIONS', () => {
         let res = actions.removeError();
         expect(res).toEqual(action);
     });
+    it('should generate UPDATE_STORE_ITEM with updated item', () => {
+        let action = {
+            type: 'UPDATE_STORE_ITEM',
+            updated: {name: 'Lala'}
+        };
+        let res = actions.updateStoreItem(action.updated);
+        expect(res).toEqual(action);
+    });
 });
 describe('ASYNC ACTIONS', () => {
     const email = 'roman@ya.ru';
@@ -122,7 +130,8 @@ describe('ASYNC ACTIONS', () => {
         })).then(() => {
             const actions = store.getActions();
             expect(actions[0]).toInclude({type: 'START_FETCH'});
-            expect(actions[1]).toInclude({type: 'FINISH_FETCH'});
+            expect(actions[1]).toInclude({type: 'UPDATE_STORE_ITEM'});
+            expect(actions[2]).toInclude({type: 'FINISH_FETCH'});
             done()
         })
         .catch(done);

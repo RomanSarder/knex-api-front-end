@@ -31,12 +31,12 @@ export let login = (email, password) => {
         }).then((res) => {
                 dispatch(successLogin(res.data.token));
                 dispatch(finishFetch());
-        })
-            .catch((err) => {
+        }).catch((err) => {
                 if (err.response) {
                     dispatch(setError(err.response.data.message));
                     dispatch(finishFetch());
                 } else {
+                    console.log(err);
                     dispatch(setError('Oops. Something went wrong! Try again.'));
                     dispatch(finishFetch());
                 }
@@ -92,6 +92,12 @@ export let fetchItems = () => {
             })
     } 
 }
+export let updateStoreItem = (updated) => {
+    return {
+        type: 'UPDATE_STORE_ITEM',
+        updated
+    }
+}
 export let updateItem = (obj) => {
     return (dispatch, getState) => {
         dispatch(startFetch());
@@ -102,6 +108,7 @@ export let updateItem = (obj) => {
             token: obj.token
         })
         .then((res) => {
+            dispatch(updateStoreItem(res.data));
             dispatch(finishFetch());
         })
         .catch((err) => {
@@ -109,7 +116,7 @@ export let updateItem = (obj) => {
                     dispatch(setError(err.response.data.message));
                     dispatch(finishFetch());
                 } else {
-                    dispatch(setError('Oops. Something went wrong! Try again.'));
+                    dispatch(setError('Oops. Something went wrong!'));
                     dispatch(finishFetch());
                 }
             })

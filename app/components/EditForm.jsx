@@ -23,13 +23,14 @@ class EditForm extends Component {
         let state = this.refs.state[this.refs.state.selectedIndex].value
         let name = this.refs.name.value;
         let number = this.refs.number.value;
-        this.props.dispatch(actions.updateItem({
+        dispatch(actions.updateItem({
             name,
             state,
             number,
             token: auth.token,
             id: params.id
         }));
+        dispatch(push('/dashboard'));
 
     }
     render() {

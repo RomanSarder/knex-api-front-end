@@ -28,6 +28,13 @@ export let itemsReducer = (state = [], action) => {
             ]
         case 'DELETE_ITEMS':
             return [];
+        case 'UPDATE_STORE_ITEM':
+            return state.map((item) => {
+                if (item.id === action.updated.id) {
+                    return action.updated;
+                }
+                return item;
+            })
         default:
             return state;
     }

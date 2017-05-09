@@ -71,5 +71,14 @@ describe('Reducers', () => {
             let res = reducers.itemsReducer(df([1,2,3]), df(action));
             expect(res).toEqual([]);
         })
+        it('should update item', () => {
+            let action = {
+                type: 'UPDATE_STORE_ITEM',
+                updated: {id: 3, prop: true}
+            };
+            let state = [{id: 1, prop: false}, {id: 3, prop:false}];
+            let res = reducers.itemsReducer(df(state), df(action));
+            expect(res[1]).toEqual(action.updated);
+        })
     });
 });
