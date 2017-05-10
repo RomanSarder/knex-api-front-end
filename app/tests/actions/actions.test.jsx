@@ -89,6 +89,14 @@ describe('ACTIONS', () => {
         let res = actions.deleteStoreItem(action.id);
         expect(res).toEqual(action);
     });
+    it('should generate CREATE_ITEM with item', () => {
+        let action = {
+            type: 'CREATE_ITEM',
+            item: ['created']
+        }
+        let res = actions.createStoreItem(action.item);
+        expect(res).toEqual(action);
+    });
 });
 describe('ASYNC ACTIONS', () => {
     const email = 'roman@ya.ru';
@@ -110,6 +118,7 @@ describe('ASYNC ACTIONS', () => {
             const actions = store.getActions();
             expect(actions[0]).toInclude({type: 'START_FETCH'});
             expect(actions[1]).toInclude({type: 'ERROR'});
+            expect(actions[1].message).toBeA('string');
             expect(actions[2]).toInclude({type: 'FINISH_FETCH'});
             done()
         }).catch(done);
@@ -139,6 +148,7 @@ describe('ASYNC ACTIONS', () => {
             const actions = store.getActions();
             expect(actions[0]).toInclude({type: 'START_FETCH'});
             expect(actions[1]).toInclude({type: 'UPDATE_ITEM'});
+            expect(actions[1].updated).toBeA('object');
             expect(actions[2]).toInclude({type: 'FINISH_FETCH'});
             done()
         })
@@ -156,6 +166,7 @@ describe('ASYNC ACTIONS', () => {
             const actions = store.getActions();
             expect(actions[0]).toInclude({type: 'START_FETCH'});
             expect(actions[1]).toInclude({type: 'ERROR'});
+            expect(actions[1].message).toBeA('string');
             done();
         }).catch(done);
     });
@@ -170,6 +181,7 @@ describe('ASYNC ACTIONS', () => {
             const actions = store.getActions();
             expect(actions[0]).toInclude({type: 'START_FETCH'});
             expect(actions[1]).toInclude({type: 'CREATE_ITEM'});
+            expect(actions[1].item).toBeA('object');
             expect(actions[2]).toNotInclude({type: 'ERROR'});
             done();
         }).catch(done);

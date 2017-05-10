@@ -10,13 +10,13 @@ class Item extends Component {
         let { action, author } = item.logs[item.logs.length - 1];
         return (
             <div className="dashboard-item" onClick={() => {console.log('Clicked');}}>
+                <span className="created">{`${item.logs[0].action} by ${item.logs[0].author}`}</span>
                 <h3>{item.name}</h3>
                 <div className="info-container">
                     <span>Amount: {item.number}</span>
                     <span>{item.state}</span>
                 </div>
-                <span className="created">{`${action} by ${author}`}</span>
-                <span className="last-log">{`Last log: ${item.logs[0].action} by ${item.logs[0].author}`}</span>
+                <span className="last-log">{`Last log: ${action} by ${author}`}</span>
                 <div className="buttons">
                     <Link to={`/items/${item.id}/edit`}><button className="edit-button">Edit</button></Link>
                     <Link to="/"><button className="delete-button">Delete</button></Link>
@@ -27,6 +27,3 @@ class Item extends Component {
 }
 
 export default Item;
-
-{/*<Link className="edit-button" to={`/items/${item.id}/edit`}>Edit</Link>
-                    <Link className="delete-button" to="/">Delete</Link>*/}

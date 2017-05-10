@@ -1,25 +1,35 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import * as actions from 'actions';
-import {push} from 'react-router-redux';
+import { push } from 'react-router-redux';
 
 class EditForm extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = {
+            item: {name: '', state: '', number:0, logs: []}
+        };
     }
-    
+
     componentWillMount() {
-        let {dispatch, auth} = this.props;
+        let { dispatch, auth, items, params } = this.props;
         if (!auth.token) {
             dispatch(actions.setError('You must login.'))
             dispatch(push('/'));
+        } else {
+            let currentItem = items.filter((item) => {
+                return item.id === parseInt(params.id);
+            })[0];
+            this.setState({
+                item: currentItem
+            })
         }
     }
-    
+
     handleSubmit(e) {
         e.preventDefault();
-        let {dispatch, auth, params} = this.props;
+        let { dispatch, auth, params } = this.props;
         let state = this.refs.state[this.refs.state.selectedIndex].value
         let name = this.refs.name.value;
         let number = this.refs.number.value;
@@ -34,37 +44,52 @@ class EditForm extends Component {
 
     }
     render() {
-        let {isLoading, items, params} = this.props;
-        let currentItem = items.filter((item) => {
-            console.log(typeof item.id);
-            return item.id === parseInt(params.id);
-        })[0];
-        // Create object to prevent error 'cannot read prop of undefined'
-        // when user types this component's url directly
-        let formInfo = {
-            name: currentItem ? currentItem.name : '',
-            number: currentItem ? currentItem.number : '',
-            state: currentItem ? currentItem.state : ''
-        };
+        let { isLoading, items, params } = this.props;
+        let {item} = this.state;
+        let {name, state, logs, number} = this.state.item;
+        let renderLogs = () => {
+            if (logs.length > 0) {
+                let createLogs = logs.filter((item) => item.action === 'Created');
+                let stateLogs = logs.filter((item) => item.action === 'State changed');
+                let editLogs = logs.filter((item) => item.action === 'Edit');
+                let stateLog = stateLogs[stateLogs.length - 1];
+                let editLog = editLogs[editLogs.length - 1];
+                let createLog = createLogs[createLogs.length - 1];
+                console.log(editLogs);
+                console.log(createLogs);
+                console.log(stateLogs);
+                return (
+                    <div className="logs">
+                        <span>{`Created by ${createLog.author}`}</span>
+                        <span>{editLog ? `Last edit by ${editLog.author}` : `Edit by ${createLog.author}`}</span>
+                        <span>{stateLog ? `State changed by ${stateLog.author}` : `State changed by ${createLog.author}`}</span>
+                    </div>
+                );
+            } else {
+                return 
+            }
+            
+        }
         return (
-            <div className="form-container">
+            <div className="form-container" id="edit-form-container">
                 <form onSubmit={this.handleSubmit}>
                     <div className="field">
                         <label>Name</label>
-                        <input type="text" name="name" placeholder="Name" ref="name" defaultValue={formInfo.name}/>
+                        <input type="text" name="name" placeholder="Name" ref="name" defaultValue={name} />
                     </div>
                     <div className="field">
                         <label>Number</label>
-                        <input type="number" name="number" step="1" placeholder="Number" ref="number" defaultValue={formInfo.number} />
+                        <input type="number" name="number" step="1" placeholder="Number" ref="number" defaultValue={number} />
                     </div>
                     <div className="field">
                         <label>State</label>
-                        <select name="state" ref="state" defaultValue={formInfo.state}>
+                        <select name="state" ref="state" defaultValue={state}>
                             <option value="In transit">In transit</option>
                             <option value="In warehouse">In warehouse</option>
                         </select>
                     </div>
                     <button className="form-button" type="submit">Submit</button>
+                    {renderLogs()}
                 </form>
             </div>
         );

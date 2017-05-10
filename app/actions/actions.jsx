@@ -37,7 +37,7 @@ export let login = (email, password) => {
                     dispatch(finishFetch());
                 } else {
                     console.log(err);
-                    dispatch(setError('Oops. Something went wrong! Try again.'));
+                    dispatch(setError(err.message));
                     dispatch(finishFetch());
                 }
             })
@@ -86,7 +86,7 @@ export let fetchItems = () => {
                     dispatch(setError(err.response.data.message));
                     dispatch(finishFetch());
                 } else {
-                    dispatch(setError('Oops. Something went wrong! Try again.'));
+                    dispatch(setError(err.message));
                     dispatch(finishFetch());
                 }
             })
@@ -105,8 +105,7 @@ export let updateItem = (update) => {
             name: update.name,
             number: update.number,
             state: update.state,
-            token: update.token
-        })
+        }, {headers: {'Authorization': `Bearer ${update.token}`}})
         .then((res) => {
             dispatch(updateStoreItem(res.data));
             dispatch(finishFetch());
@@ -116,7 +115,7 @@ export let updateItem = (update) => {
                     dispatch(setError(err.response.data.message));
                     dispatch(finishFetch());
                 } else {
-                    dispatch(setError('Oops. Something went wrong!'));
+                    dispatch(setError(err.message));
                     dispatch(finishFetch());
                 }
             })
@@ -129,8 +128,7 @@ export let createItem = (created) => {
             name: created.name,
             number: created.number,
             state: created.state,
-            token: created.token
-        })
+        },{headers: {'Authorization': `Bearer ${created.token}`}})
         .then((res) => {
             dispatch(createStoreItem(res.data));
             dispatch(finishFetch());
@@ -140,7 +138,7 @@ export let createItem = (created) => {
                     dispatch(setError(err.response.data.message));
                     dispatch(finishFetch());
                 } else {
-                    dispatch(setError('Oops. Something went wrong!'));
+                    dispatch(setError(err.message));
                     dispatch(finishFetch());
                 }
             })
@@ -151,4 +149,10 @@ export let createStoreItem = (item) => {
         type: 'CREATE_ITEM',
         item
     };
+}
+export let deleteStoreItem = (id) => {
+    return {
+        type: 'DELETE_ITEM',
+        id
+    }
 }
