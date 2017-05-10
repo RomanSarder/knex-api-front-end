@@ -6,6 +6,7 @@ import Home from 'Home';
 import Dashboard from 'Dashboard';
 import EditForm from 'EditForm';
 import NewItemForm from 'NewItemForm';
+import RegisterForm from 'RegisterForm';
 import { configure } from 'configureStore';
 import * as actions from 'actions';
 import { Provider } from 'react-redux'
@@ -21,6 +22,7 @@ render(
 		<Router history={history}>
 			<Route path="/" component={Main}>
 				<IndexRoute component={Home}/>
+				<Route path='/register' component={RegisterForm}/>
 				<Route path='/dashboard' component={Dashboard}/>
 				<Route path='/items/:id/edit' component={EditForm}/>
 				<Route path='/items/new' component={NewItemForm}/>

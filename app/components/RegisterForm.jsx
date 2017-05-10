@@ -1,12 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import * as actions from 'actions';
 import {push} from 'react-router-redux';
-import {Link} from 'react-router';
+import * as actions from 'actions';
 
-class Home extends Component {
+class RegisterForm extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentWillReceiveProps(nextProps) {
@@ -14,13 +13,13 @@ class Home extends Component {
             this.props.dispatch(push('/dashboard'));
         }
     }
-    
     handleSubmit(e) {
-        let {isLoading, auth, dispatch} = this.props
         e.preventDefault();
+        let {dispatch} = this.props;
+        let name = this.refs.name.value;
         let email = this.refs.email.value;
         let password = this.refs.password.value;
-        dispatch(actions.login(email, password));
+        dispatch(actions.register({email, name, password}));  
     }
     render() {
         let {isLoading, auth, dispatch} = this.props;
@@ -36,22 +35,26 @@ class Home extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <div className="field">
                         <label>Email</label>
-                        <input type="text" name="email" placeholder="Email" ref="email" required/>
+                        <input type="text" name="email" placeholder="Email" ref="email"  required/>
+                    </div>
+                    <div className="field">
+                        <label>Name</label>
+                        <input type="text" name="name" placeholder="Name" ref="name" required/>
                     </div>
                     <div className="field">
                         <label>Password</label>
-                        <input type="password" name="password" placeholder="password" ref="password" required/>
+                        <input type="text" name="password" placeholder="password" ref="password" required/>
                     </div>
                     <button className="form-button" type="submit">{renderLoading()}</button>
-                    <Link to="/register">Register</Link>
                 </form>
             </div>
         );
     }
 }
 
-export default connect(
-    (state) => {
-        return state;
+export default connect((state) => {
+    return {
+        isLoading: state.isLoading,
+        auth: state.auth
     }
-)(Home);
+})(RegisterForm);

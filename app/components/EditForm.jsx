@@ -55,9 +55,6 @@ class EditForm extends Component {
                 let stateLog = stateLogs[stateLogs.length - 1];
                 let editLog = editLogs[editLogs.length - 1];
                 let createLog = createLogs[createLogs.length - 1];
-                console.log(editLogs);
-                console.log(createLogs);
-                console.log(stateLogs);
                 return (
                     <div className="logs">
                         <span>{`Created by ${createLog.author}`}</span>

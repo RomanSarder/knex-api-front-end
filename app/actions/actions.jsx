@@ -16,12 +16,6 @@ export let successLogin = (token) => {
         token
     }
 }
-export let failLogin = (message) => {
-    return {
-        type: 'FAIL_LOGIN',
-        message
-    }
-}
 export let login = (email, password) => {
     return (dispatch, getState) => {
         dispatch(startFetch());
@@ -36,7 +30,6 @@ export let login = (email, password) => {
                     dispatch(setError(err.response.data.message));
                     dispatch(finishFetch());
                 } else {
-                    console.log(err);
                     dispatch(setError('Oops. Something went wrong!'));
                     dispatch(finishFetch());
                 }
@@ -165,6 +158,29 @@ export let deleteItem = (id, token) => {
         .then((res) => {
             dispatch(deleteStoreItem(id));
             dispatch(finishFetch())
+        })
+        .catch((err) => {
+                if (err.response) {
+                    dispatch(setError(err.response.data.message));
+                    dispatch(finishFetch());
+                } else {
+                    dispatch(setError('Oops. Something went wrong!'));
+                    dispatch(finishFetch());
+                }
+            })
+    }
+}
+export let register = (data) => {
+    return (dispatch, getState) => {
+        dispatch(startFetch());
+        return axios.post(`${URL}/api/register`, {
+            email: data.email,
+            name: data.name,
+            password: data.password
+        })
+        .then((res) => {
+            dispatch(successLogin(res.data.token));
+            dispatch(finishFetch());
         })
         .catch((err) => {
                 if (err.response) {

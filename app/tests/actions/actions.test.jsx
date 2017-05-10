@@ -35,14 +35,6 @@ describe('ACTIONS', () => {
         let res = actions.successLogin(action.token);
         expect(res).toEqual(action);
     });
-    it('should generate FAIL_LOGIN action with message', () => {
-        let action = {
-            type: 'FAIL_LOGIN',
-            message: 'Message'
-        };
-        let res = actions.failLogin(action.message);
-        expect(res).toEqual(action);
-    });
     it('should generate ADD_ITEMS action with array', () => {
         let action = {
             type: 'ADD_ITEMS',
@@ -112,7 +104,7 @@ describe('ASYNC ACTIONS', () => {
             done()
         }).catch(done);
     });
-    it('should start fetching data and generate failLogin', (done) => {
+    it('should start fetching data and generate ERROR', (done) => {
         const store = createMockStore();
         store.dispatch(actions.login('1234', 'adsad')).then(() => {
             const actions = store.getActions();
@@ -195,6 +187,17 @@ describe('ASYNC ACTIONS', () => {
             expect(actions[1]).toInclude({type: 'DELETE_ITEM'});
             expect(actions[1].id).toBeA('number');
             expect(actions[2]).toNotInclude({type: 'ERROR'});
+            done()
+        }).catch(done);
+    });
+    it('should register user', (done) => {
+        const store = createMockStore({});
+        store.dispatch(actions.register({email: 'roman.sarder@yandex.ru', name: 'Roman Sarder', password: '1234'})).then(() => {
+            const actions = store.getActions();
+            expect(actions[0]).toInclude({type: 'START_FETCH'});
+            expect(actions[1]).toInclude({type: 'SUCCESS_LOGIN'});
+            expect(actions[1].token).toBeA('string');
+            expect(actions[2]).toInclude({type: 'FINISH_FETCH'});
             done()
         }).catch(done);
     });
