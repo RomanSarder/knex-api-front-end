@@ -61,7 +61,7 @@ class EditForm extends Component {
                 return (
                     <div className="logs">
                         <span>{`Created by ${createLog.author}`}</span>
-                        <span>{editLog ? `Last edit by ${editLog.author}` : `Edit by ${createLog.author}`}</span>
+                        <span>{editLog ? `Last edit by ${editLog.author}` : `Last Edit by ${createLog.author}`}</span>
                         <span>{stateLog ? `State changed by ${stateLog.author}` : `State changed by ${createLog.author}`}</span>
                     </div>
                 );
@@ -97,5 +97,9 @@ class EditForm extends Component {
 }
 
 export default connect((state) => {
-    return state;
+    return {
+        auth: state.auth,
+        isLoading: state.isLoading,
+        items: state.items
+    };
 })(EditForm);

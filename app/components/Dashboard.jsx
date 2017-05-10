@@ -42,7 +42,10 @@ class DashBoard extends Component {
 
 export default connect(
     (state) => {
-        return state;
+        return {
+            items: state.items,
+            auth: state.auth
+        };
     }
 )(DashBoard);
 

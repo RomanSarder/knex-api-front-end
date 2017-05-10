@@ -37,7 +37,7 @@ export let login = (email, password) => {
                     dispatch(finishFetch());
                 } else {
                     console.log(err);
-                    dispatch(setError(err.message));
+                    dispatch(setError('Oops. Something went wrong!'));
                     dispatch(finishFetch());
                 }
             })
@@ -86,7 +86,7 @@ export let fetchItems = () => {
                     dispatch(setError(err.response.data.message));
                     dispatch(finishFetch());
                 } else {
-                    dispatch(setError(err.message));
+                    dispatch(setError('Oops. Something went wrong!'));
                     dispatch(finishFetch());
                 }
             })
@@ -115,7 +115,7 @@ export let updateItem = (update) => {
                     dispatch(setError(err.response.data.message));
                     dispatch(finishFetch());
                 } else {
-                    dispatch(setError(err.message));
+                    dispatch(setError('Oops. Something went wrong!'));
                     dispatch(finishFetch());
                 }
             })
@@ -138,7 +138,7 @@ export let createItem = (created) => {
                     dispatch(setError(err.response.data.message));
                     dispatch(finishFetch());
                 } else {
-                    dispatch(setError(err.message));
+                    dispatch(setError('Oops. Something went wrong!'));
                     dispatch(finishFetch());
                 }
             })
@@ -154,5 +154,26 @@ export let deleteStoreItem = (id) => {
     return {
         type: 'DELETE_ITEM',
         id
+    }
+}
+export let deleteItem = (id, token) => {
+    return (dispatch, getState) => {
+        dispatch(startFetch());
+        return axios.delete(`${URL}/api/items/${id}`, {
+            headers: {'Authorization': `Bearer ${token}`}
+        })
+        .then((res) => {
+            dispatch(deleteStoreItem(id));
+            dispatch(finishFetch())
+        })
+        .catch((err) => {
+                if (err.response) {
+                    dispatch(setError(err.response.data.message));
+                    dispatch(finishFetch());
+                } else {
+                    dispatch(setError('Oops. Something went wrong!'));
+                    dispatch(finishFetch());
+                }
+            })
     }
 }

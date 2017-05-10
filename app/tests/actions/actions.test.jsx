@@ -188,12 +188,12 @@ describe('ASYNC ACTIONS', () => {
     });
     it('should delete item', (done) => {
         const store = createMockStore();
-        store.dispatch(actions.deleteItem(1))
+        store.dispatch(actions.deleteItem(1, token))
         .then(() => {
             const actions = store.getActions();
             expect(actions[0]).toInclude({type: 'START_FETCH'});
             expect(actions[1]).toInclude({type: 'DELETE_ITEM'});
-            expect(action[1].id).toBeA('number');
+            expect(actions[1].id).toBeA('number');
             expect(actions[2]).toNotInclude({type: 'ERROR'});
             done()
         }).catch(done);

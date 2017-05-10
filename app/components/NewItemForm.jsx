@@ -8,6 +8,15 @@ class NewItemForm extends Component {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+    
+    componentWillMount() {
+        let {auth, dispatch} = this.props;
+        if (!auth.token) {
+            dispatch(push('/'));
+            dispatch(actions.setError('You must log in.'));
+        }
+    }
+    
     handleSubmit(e) {
         e.preventDefault();
         let {auth, isLoading, dispatch} = this.props;
@@ -45,5 +54,8 @@ class NewItemForm extends Component {
 }
 
 export default connect((state) => {
-    return state
+    return {
+        auth: state.auth,
+        isLoading: state.isLoading
+    }
 })(NewItemForm);
